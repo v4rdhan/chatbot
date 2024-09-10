@@ -3,7 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import json
 
+from django.views.decorators.csrf import csrf_exempt
+
 # Login View
+@csrf_exempt
 def login_view(request):
     if request.method == 'POST':
         data = json.loads(request.body)
