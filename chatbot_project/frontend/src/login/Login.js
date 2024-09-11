@@ -20,7 +20,7 @@ export default function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "X-CSRFToken": getCookie("csrftoken"),
+        "X-CSRFToken": getCookie("csrftoken"),
       },
       body: JSON.stringify({ username, password }),
       credentials: "include", // This ensures the session cookie is stored

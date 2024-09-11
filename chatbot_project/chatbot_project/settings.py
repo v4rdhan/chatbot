@@ -60,7 +60,7 @@ MIDDLEWARE = [
     
 ]
 
-REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissoin.AllowAny']}
+# REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permission.AllowAny']}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -148,3 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/api/login/'
 LOGOUT_URL = '/api/logout/'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',  # Add your frontend's origin
+]
