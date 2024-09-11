@@ -3,6 +3,7 @@ import { TextField, Box, Button, Stack } from "@mui/material";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import "./Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,9 +54,9 @@ export default function Login() {
 
   return (
     <>
-      <div>
-        <h2 className="d-flex align-items-center justify-content-center">
-          Please Login or Sign in
+      <div className="d-flex vh-100">
+        <h2 className="d-flex align-items-center justify-content-center  w-50 ms-5">
+          Hey! Please Sign In to access the ChatBot
         </h2>
         <Box
           onSubmit={handleSignIn}
@@ -68,7 +69,7 @@ export default function Login() {
             type="text"
             name="username"
             id="fullWidth"
-            label="Username or Email"
+            label="Username"
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField

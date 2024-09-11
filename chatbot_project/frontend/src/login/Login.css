@@ -1,3 +1,10 @@
 .login {
   height: 100px;
 }
+
+h2 {
+  font-family: "SUSE", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
