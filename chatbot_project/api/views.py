@@ -20,6 +20,7 @@ def login_view(request):
             return JsonResponse({'error': 'Invalid credentials'}, status=400)
 
 # Logout View
+@csrf_exempt
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
