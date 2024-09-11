@@ -2,12 +2,54 @@ import React from "react";
 import { TextField, Box, Button, Stack } from "@mui/material";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
   const signup = () => {
     navigate("/signup");
   };
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:8000/api/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: JSON.stringify({ username, password }),
+      credentials: "include", // This ensures the session cookie is stored
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          // Navigate to home/dashboard after login
+          navigate("/chatbot");
+        } else if (data.error) {
+          setError(data.error);
+        }
+      });
+  };
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 
   return (
     <>
@@ -16,6 +58,7 @@ export default function Login() {
           Please Login or Sign in
         </h2>
         <Box
+          onSubmit={handleSignIn}
           className="d-flex flex-column align-items-center justify-content-center"
           component="form"
           sx={{ "& > :not(style)": { m: 1, width: "45ch" } }}
@@ -26,12 +69,14 @@ export default function Login() {
             name="username"
             id="fullWidth"
             label="Username or Email"
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             type="password"
             name="password"
             id="fullWidth"
             label="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Stack
@@ -39,7 +84,7 @@ export default function Login() {
             direction="row"
             className="d-flex align-items-center "
           >
-            <Button variant="contained" type="Submit">
+            <Button variant="contained" type="Submit" onClick={handleSignIn}>
               Sign In
             </Button>
             <Button variant="outlined" onClick={() => signup()}>
