@@ -14,3 +14,21 @@
 .card-color-secondary{
     background-color: #f0f0f0;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
+.message-input:focus{
+    border: none;
+    outline: none;
+}
+.message-input{
+    border: none;
+    outline: none;
+}
+.sender-message{
+    display: flex;
+    justify-content: end;
+}
+.sender-message p{
+    border-radius: 6px 6px 0px 6px;
+}
