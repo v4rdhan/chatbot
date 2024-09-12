@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     
     'rest_framework',
+    'rest_framework_simplejwt',
     
-    'corsheaders'
+    'corsheaders',
+    
+    
 ]
 
 MIDDLEWARE = [    
@@ -61,6 +64,11 @@ MIDDLEWARE = [
 ]
 
 # REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permission.AllowAny']}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', )
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -146,8 +154,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-LOGIN_URL = '/api/login/'
-LOGOUT_URL = '/api/logout/'
+# LOGIN_URL = '/api/login/'
+# LOGOUT_URL = '/api/logout/'
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',  # Add your frontend's origin
