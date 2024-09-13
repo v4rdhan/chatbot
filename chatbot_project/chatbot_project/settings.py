@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-m&b6ot)ycl2)6%hikb)(tw5qkd^6_2zb)a7smfbau)pf6-1i4r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chatbot-e9vv.onrender.com']
 
 
 # Application definition
@@ -158,5 +158,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # LOGOUT_URL = '/api/logout/'
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',  # Add your frontend's origin
+    'http://localhost:3000',
+    # 'chatbot-e9vv.onrender.com'
+    # Add your frontend's origin
 ]
