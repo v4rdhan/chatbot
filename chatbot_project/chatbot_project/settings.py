@@ -162,3 +162,7 @@ CSRF_TRUSTED_ORIGINS = [
     # 'chatbot-e9vv.onrender.com'
     # Add your frontend's origin
 ]
+
+import os
+
+SECRET_KEY = os.environ["SECRET_KEY"]
