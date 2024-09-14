@@ -4,6 +4,9 @@ from django.http import JsonResponse
 # import json
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
+from .models import OrderStatus
+from .serializers import OrderSerializer
+from rest_framework.decorators import APIView
 
 
 # views.py
@@ -51,3 +54,14 @@ def signup_view(request):
         serializer.save()
         return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@permission_classes([AllowAny])
+class OrderStatusView(APIView):
+    def get(self, request, order_id):
+        try:
+            order = OrderStatus.objects.get(order_id=order_id)
+            serializer = OrderSerializer(order)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except OrderStatus.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
