@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-m&b6ot)ycl2)6%hikb)(tw5qkd^6_2zb)a7smfbau)pf6-1i4r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['chatbot-e9vv.onrender.com']
+ALLOWED_HOSTS = ['chatbot-e9vv.onrender.com', 'dpg-crhip0aj1k6c73fil56g-a.oregon-postgres.render.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -105,15 +105,27 @@ WSGI_APPLICATION = 'chatbot_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
+# import dj_database_url
+# DATABASES = {
+#     'default': {
+#         'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# } #default configurarion
+
+
 DATABASES = {
-    'default': {
-        'default': dj_database_url.config,
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'my_database_855z',
+        'USER':'v4rdhan',
+        'PASSWORD': 'kki8Iw1QAzVO7WAcztAH2e2c6ydx7Yzn',
+        'HOST':'dpg-crhip0aj1k6c73fil56g-a.oregon-postgres.render.com',
+        'PORT':'5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
