@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import json
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes  
 from django.views.decorators.csrf import csrf_exempt
 from .models import OrderStatus
 from .serializers import OrderSerializer
@@ -102,16 +102,18 @@ def check_order_status(request):
         if not order_id:
             return Response({"fulfillmentText": "order_id not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
+        if intent == 'order-tracking ongoing-order-tracking':
         # Query the Order model for the given order_id
-        try:
-            order = OrderStatus.objects.get(order_id=order_id)
-            # Return the order status as JSON
-            return JsonResponse({"fulfillmentText": order.order_id, "status": order.status}, status=status.HTTP_200_OK)
-            
-            
-            # return Response({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
-        except OrderStatus.DoesNotExist:
-            return Response({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+            try:
+                order = OrderStatus.objects.only('order_id', 'order_status').get(order_id=order_id)
+                # order = OrderStatus.objects.raw('Select order_status from OrderStatus where order_id = 12345')
+                # Return the order status as JSON
+                return Response({"fulfillmentText": f'order id {order.order_id} is {order.order_status}'}, status=status.HTTP_200_OK)
+                # return Response({"fulfillmentText": 12345, "status":f'{order}'}, status=status.HTTP_200_OK)
+                
+                # return Response({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
+            except OrderStatus.DoesNotExist:
+                return Response({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
     
     except json.JSONDecodeError:
         return Response({"fulfillmentText": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
