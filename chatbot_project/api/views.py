@@ -113,7 +113,7 @@ def check_order_status(request):
                 
                 # return Response({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
             except OrderStatus.DoesNotExist:
-                return Response({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"fulfillmentText": "Order not found"}, status=status.HTTP_200_OK)
     
     except json.JSONDecodeError:
         return Response({"fulfillmentText": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
