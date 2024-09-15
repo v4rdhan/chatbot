@@ -98,9 +98,10 @@ def check_order_status(request):
         try:
             order = OrderStatus.objects.get(order_id=order_id)
             # Return the order status as JSON
-            return Response({"order_id": order.order_id, "status": order.status}, status=status.HTTP_200_OK)
+            # return JsonResponse({"fulfillmentText": order.order_id, "status": order.status}, status=status.HTTP_200_OK)
+            return JsonResponse({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
         except OrderStatus.DoesNotExist:
-            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
     
     except json.JSONDecodeError:
         return Response({"error": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
