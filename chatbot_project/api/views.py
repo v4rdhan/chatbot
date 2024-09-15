@@ -86,7 +86,7 @@ def signup_view(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def check_order_status(request):
-    # try:
+    try:
         # Extract the JSON data from the request
         # data = json.loads(request.body)
         # order_id = request.data.get('order_id')
@@ -97,21 +97,21 @@ def check_order_status(request):
         order_id = payload['queryResult']['parameters']
         intent = payload['queryResult']['intent']['displayName']
 
-        return Response({"fulfillmentText": f"Received == {intent}"}, status=status.HTTP_200_OK)
+        # return Response({"fulfillmentText": f"Received == {intent}"}, status=status.HTTP_200_OK)
         
-    #     if not order_id:
-    #         return Response({"fulfillmentText": "order_id not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        if not order_id:
+            return Response({"fulfillmentText": "order_id not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
-    #     # Query the Order model for the given order_id
-    #     try:
-    #         order = OrderStatus.objects.get(order_id=order_id)
-    #         # Return the order status as JSON
-    #         # return JsonResponse({"fulfillmentText": order.order_id, "status": order.status}, status=status.HTTP_200_OK)
+        # Query the Order model for the given order_id
+        try:
+            order = OrderStatus.objects.get(order_id=order_id)
+            # Return the order status as JSON
+            return JsonResponse({"fulfillmentText": order.order_id, "status": order.status}, status=status.HTTP_200_OK)
             
             
-    #         return JsonResponse({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
-    #     except OrderStatus.DoesNotExist:
-    #         return JsonResponse({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+            # return Response({"fulfillmentText": f"Received == {order.order_id}"}, status=status.HTTP_200_OK)
+        except OrderStatus.DoesNotExist:
+            return Response({"fulfillmentText": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
     
-    # except json.JSONDecodeError:
-    #     return Response({"fulfillmentText": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
+    except json.JSONDecodeError:
+        return Response({"fulfillmentText": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
