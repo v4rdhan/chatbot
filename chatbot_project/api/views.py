@@ -94,7 +94,7 @@ def check_order_status(request):
         
         payload = request.data
             
-        order_id = payload['queryResult']['parameters']
+        order_id = payload['queryResult']['parameters']['order_id']
         intent = payload['queryResult']['intent']['displayName']
 
         # return Response({"fulfillmentText": f"Received == {intent}"}, status=status.HTTP_200_OK)
