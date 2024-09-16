@@ -54,7 +54,8 @@ def signup_view(request):
     if serializer.is_valid():
         serializer.save()
         return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({"error": f'{serializer.errors}' }, status=400)
 
 # @csrf_exempt
 # @permission_classes([AllowAny])
